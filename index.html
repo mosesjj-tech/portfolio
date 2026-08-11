@@ -35,8 +35,8 @@
         <h3>Cybersecurity Enthusiast</h3>
 
         <p>
-          I am learning cybersecurity, networking, Linux, SIEM, threat detection
-          and security operations.
+          I am learning cybersecurity, networking, Linux, SIEM, threat
+          detection, and security operations.
         </p>
 
         <div class="hero-buttons">
@@ -46,51 +46,93 @@
       </div>
     </section>
 
-    <!-- About -->
+    <!-- About Section -->
     <section id="about" class="section">
       <h2>About Me</h2>
 
       <p>
-        I am a beginner cybersecurity enthusiast passionate about learning how
-        computers, networks and security systems work.
+        I am a cybersecurity enthusiast passionate about learning how
+        computers, networks, and security systems work.
       </p>
 
       <p>
         My current learning areas include Linux, networking, SIEM, incident
-        response, vulnerability assessment and security monitoring.
+        response, vulnerability assessment, and security monitoring.
       </p>
     </section>
 
-    <!-- Skills -->
+    <!-- Skills Section -->
     <section id="skills" class="section">
       <h2>My Skills</h2>
 
       <div class="skills-container">
         <div class="skill-card">
+          <h3>HTML</h3>
+          <p>
+            Learning how to structure websites and create accessible web
+            pages using HTML.
+          </p>
+        </div>
+
+        <div class="skill-card">
+          <h3>CSS</h3>
+          <p>
+            Learning how to style websites and create clean, responsive
+            designs.
+          </p>
+        </div>
+
+        <div class="skill-card">
+          <h3>JavaScript</h3>
+          <p>
+            Learning JavaScript to add interactive features and functionality
+            to websites.
+          </p>
+        </div>
+
+        <div class="skill-card">
           <h3>Linux</h3>
-          <p>Linux commands, Bash and system administration.</p>
+          <p>
+            Practicing Linux commands, Bash, permissions, processes, and
+            system administration.
+          </p>
         </div>
 
         <div class="skill-card">
           <h3>Networking</h3>
           <p>
-            IP addressing, DNS, DHCP, HTTP/HTTPS and networking fundamentals.
+            Learning IP addressing, DNS, DHCP, HTTP/HTTPS, protocols, and
+            networking fundamentals.
           </p>
         </div>
 
         <div class="skill-card">
           <h3>Cybersecurity</h3>
-          <p>Security monitoring, threat detection and incident response.</p>
+          <p>
+            Learning security monitoring, threat detection, incident response,
+            and security operations.
+          </p>
         </div>
 
         <div class="skill-card">
-          <h3>SIEM</h3>
-          <p>Learning Splunk and security event analysis.</p>
+          <h3>SIEM & Splunk</h3>
+          <p>
+            Practicing security event monitoring and learning how SIEM tools
+            can help identify suspicious activity.
+          </p>
+        </div>
+
+        <div class="skill-card">
+          <h3>Git & GitHub</h3>
+          <p>
+            Learning version control, repositories, commits, and GitHub Pages
+            deployment.
+          </p>
         </div>
       </div>
     </section>
 
-    <!-- Projects -->
+    <!-- Projects Section -->
     <section id="projects" class="section">
       <h2>My Projects</h2>
 
@@ -99,61 +141,98 @@
           <h3>Security Monitoring Lab</h3>
 
           <p>
-            A cybersecurity laboratory for learning security monitoring and
-            analyzing events using SIEM tools.
+            A cybersecurity learning laboratory focused on security monitoring
+            and analyzing events using SIEM tools.
           </p>
 
-          <button class="project-btn">View Project</button>
+          <button class="project-btn" type="button">
+            View Project
+          </button>
         </div>
 
         <div class="project-card">
           <h3>Linux Security Lab</h3>
 
           <p>
-            Hands-on Linux practice involving commands, permissions, processes
-            and system administration.
+            Hands-on Linux practice involving commands, permissions,
+            processes, users, and system administration.
           </p>
 
-          <button class="project-btn">View Project</button>
+          <button class="project-btn" type="button">
+            View Project
+          </button>
         </div>
 
         <div class="project-card">
           <h3>Network Security Lab</h3>
 
           <p>
-            A learning project focused on networking, IP addresses, protocols
-            and security concepts.
+            A learning project focused on IP addresses, protocols, networking
+            fundamentals, and security concepts.
           </p>
 
-          <button class="project-btn">View Project</button>
+          <button class="project-btn" type="button">
+            View Project
+          </button>
+        </div>
+
+        <div class="project-card">
+          <h3>Personal Portfolio</h3>
+
+          <p>
+            A personal website built with HTML, CSS, and JavaScript to
+            showcase my cybersecurity learning journey and projects.
+          </p>
+
+          <button class="project-btn" type="button">
+            View Project
+          </button>
         </div>
       </div>
     </section>
 
-    <!-- Contact -->
+    <!-- Contact Section -->
     <section id="contact" class="section contact-section">
       <h2>Contact Me</h2>
 
-      <p>Have a question or want to connect? Send me a message.</p>
+      <p>
+        Have a question or want to connect? Send me a message.
+      </p>
 
       <form id="contactForm">
-        <input type="text" id="name" placeholder="Enter your name" required />
+        <label for="name">Name</label>
+
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Enter your name"
+          required
+        />
+
+        <label for="email">Email</label>
 
         <input
           type="email"
           id="email"
+          name="email"
           placeholder="Enter your email"
           required
         />
 
+        <label for="message">Message</label>
+
         <textarea
           id="message"
+          name="message"
           placeholder="Write your message"
           rows="6"
           required
         ></textarea>
 
-        <button type="submit" class="btn">Send Message</button>
+        <button type="submit" class="btn">
+          Send Message
+        </button>
       </form>
 
       <p id="formMessage"></p>
@@ -161,10 +240,15 @@
 
     <!-- Footer -->
     <footer>
-      <p>© <span id="year"></span> Moses Abulu. All rights reserved.</p>
+      <p>
+        © <span id="year"></span> Moses Abulu. All rights reserved.
+      </p>
     </footer>
 
     <!-- JavaScript -->
     <script src="script.js"></script>
+
+    <!-- Portfolio deployment marker -->
+    <!-- Portfolio website -->
   </body>
 </html>
