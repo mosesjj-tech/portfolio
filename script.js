@@ -52,16 +52,17 @@ document.addEventListener("DOMContentLoaded", () => {
      SMOOTH NAVIGATION
   ======================================================= */
 
-  const navigationLinks = document.querySelectorAll(
-    'a[href^="#"]'
-  );
+  const navigationLinks =
+    document.querySelectorAll('a[href^="#"]');
 
 
   navigationLinks.forEach((link) => {
 
     link.addEventListener("click", (event) => {
 
-      const targetId = link.getAttribute("href");
+      const targetId =
+        link.getAttribute("href");
+
 
       if (!targetId || targetId === "#") {
         return;
@@ -75,7 +76,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (targetElement) {
 
         event.preventDefault();
-
 
         targetElement.scrollIntoView({
           behavior: "smooth",
@@ -100,6 +100,16 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("formMessage");
 
 
+  /*
+     IMPORTANT:
+     Replace this email address with the email address
+     where you want to receive portfolio messages.
+  */
+
+  const portfolioEmail =
+    "YOUR-EMAIL@example.com";
+
+
   if (contactForm) {
 
     contactForm.addEventListener("submit", (event) => {
@@ -107,15 +117,29 @@ document.addEventListener("DOMContentLoaded", () => {
       event.preventDefault();
 
 
+      const nameInput =
+        document.getElementById("name");
+
+      const emailInput =
+        document.getElementById("email");
+
+      const messageInput =
+        document.getElementById("message");
+
+
       const name =
-        document.getElementById("name")?.value.trim();
+        nameInput ? nameInput.value.trim() : "";
 
       const email =
-        document.getElementById("email")?.value.trim();
+        emailInput ? emailInput.value.trim() : "";
 
       const message =
-        document.getElementById("message")?.value.trim();
+        messageInput ? messageInput.value.trim() : "";
 
+
+      /* ---------------------------------------------------
+         CHECK REQUIRED FIELDS
+      --------------------------------------------------- */
 
       if (!name || !email || !message) {
 
@@ -133,10 +157,71 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
 
+      /* ---------------------------------------------------
+         CHECK EMAIL FORMAT
+      --------------------------------------------------- */
+
+      const emailPattern =
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+      if (!emailPattern.test(email)) {
+
+        if (formMessage) {
+
+          formMessage.textContent =
+            "Please enter a valid email address.";
+
+          formMessage.className =
+            "form-error";
+
+        }
+
+        return;
+      }
+
+
+      /* ---------------------------------------------------
+         PREPARE EMAIL
+      --------------------------------------------------- */
+
+      const subject =
+        encodeURIComponent(
+          `Portfolio Message from ${name}`
+        );
+
+
+      const body =
+        encodeURIComponent(
+          `Hello Moses,\n\n` +
+          `Name: ${name}\n` +
+          `Email: ${email}\n\n` +
+          `Message:\n${message}\n\n` +
+          `Sent from the Moses Abulu Cybersecurity Portfolio.`
+        );
+
+
+      /*
+         This opens the visitor's email application
+         with the message already prepared.
+      */
+
+      const mailtoLink =
+        `mailto:${portfolioEmail}?subject=${subject}&body=${body}`;
+
+
+      window.location.href =
+        mailtoLink;
+
+
+      /* ---------------------------------------------------
+         WEBSITE MESSAGE
+      --------------------------------------------------- */
+
       if (formMessage) {
 
         formMessage.textContent =
-          `Thanks, ${name}! Your message has been received.`;
+          "Your email application is opening. Thank you for contacting me!";
 
         formMessage.className =
           "form-success";
@@ -144,7 +229,15 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
 
-      contactForm.reset();
+      /* ---------------------------------------------------
+         CLEAR FORM
+      --------------------------------------------------- */
+
+      setTimeout(() => {
+
+        contactForm.reset();
+
+      }, 500);
 
     });
 
@@ -164,11 +257,17 @@ document.addEventListener("DOMContentLoaded", () => {
     card.addEventListener("click", () => {
 
       dashboardCards.forEach((item) => {
-        item.classList.remove("dashboard-active");
+
+        item.classList.remove(
+          "dashboard-active"
+        );
+
       });
 
 
-      card.classList.add("dashboard-active");
+      card.classList.add(
+        "dashboard-active"
+      );
 
     });
 
@@ -176,37 +275,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =======================================================
-     PROJECT BUTTON INTERACTION
+     PROJECT CARD INTERACTION
   ======================================================= */
 
-  const projectButtons =
-    document.querySelectorAll(".project-btn");
+  const projectCards =
+    document.querySelectorAll(".project-card");
 
 
-  projectButtons.forEach((button) => {
+  projectCards.forEach((card) => {
 
-    button.addEventListener("click", () => {
+    card.addEventListener("mouseenter", () => {
 
-      const projectCard =
-        button.closest(".project-card");
+      card.setAttribute(
+        "data-hover",
+        "true"
+      );
 
-
-      if (!projectCard) {
-        return;
-      }
-
-
-      const projectTitle =
-        projectCard.querySelector("h3");
+    });
 
 
-      if (projectTitle) {
+    card.addEventListener("mouseleave", () => {
 
-        alert(
-          `${projectTitle.textContent} — Project details coming soon.`
-        );
-
-      }
+      card.removeAttribute(
+        "data-hover"
+      );
 
     });
 
@@ -214,58 +306,70 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =======================================================
-     INTERSECTION ANIMATION
+     SCROLL ANIMATION
   ======================================================= */
 
   const animatedElements =
     document.querySelectorAll(
-      ".focus-card, .skill-card, .dashboard-card, .tool-card, .project-card"
+      ".focus-card, " +
+      ".skill-card, " +
+      ".dashboard-card, " +
+      ".tool-card, " +
+      ".project-card"
     );
 
 
-  const observer =
-    new IntersectionObserver(
-      (entries) => {
+  if ("IntersectionObserver" in window) {
 
-        entries.forEach((entry) => {
+    const observer =
+      new IntersectionObserver(
+        (entries) => {
 
-          if (entry.isIntersecting) {
+          entries.forEach((entry) => {
 
-            entry.target.style.opacity = "1";
+            if (entry.isIntersecting) {
 
-            entry.target.style.transform =
-              "translateY(0)";
+              entry.target.style.opacity =
+                "1";
 
-            observer.unobserve(entry.target);
+              entry.target.style.transform =
+                "translateY(0)";
 
-          }
+              observer.unobserve(
+                entry.target
+              );
 
-        });
+            }
 
-      },
-      {
-        threshold: 0.15
-      }
-    );
+          });
+
+        },
+        {
+          threshold: 0.15
+        }
+      );
 
 
-  animatedElements.forEach((element) => {
+    animatedElements.forEach((element) => {
 
-    element.style.opacity = "0";
+      element.style.opacity =
+        "0";
 
-    element.style.transform =
-      "translateY(25px)";
+      element.style.transform =
+        "translateY(25px)";
 
-    element.style.transition =
-      "opacity 0.6s ease, transform 0.6s ease";
+      element.style.transition =
+        "opacity 0.6s ease, transform 0.6s ease";
 
-    observer.observe(element);
+      observer.observe(element);
 
-  });
+    });
+
+  }
 
 
   /* =======================================================
-     CONSOLE MESSAGE
+     SECURITY CONSOLE MESSAGE
   ======================================================= */
 
   console.log(
