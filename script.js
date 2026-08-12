@@ -28,19 +28,15 @@ document.addEventListener("DOMContentLoaded", () => {
     link.addEventListener("click", (event) => {
 
       const targetId = link.getAttribute("href");
-
-      const targetElement =
-        document.querySelector(targetId);
+      const targetElement = document.querySelector(targetId);
 
       if (targetElement) {
-
         event.preventDefault();
 
         targetElement.scrollIntoView({
           behavior: "smooth",
           block: "start"
         });
-
       }
 
     });
@@ -49,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =========================================
-     BACK TO TOP BUTTON
+     BACK TO TOP
   ========================================= */
 
   const backToTop =
@@ -60,17 +56,12 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("scroll", () => {
 
       if (window.scrollY > 400) {
-
         backToTop.classList.add("show");
-
       } else {
-
         backToTop.classList.remove("show");
-
       }
 
     });
-
 
     backToTop.addEventListener("click", () => {
 
@@ -101,7 +92,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       event.preventDefault();
 
-
       const nameInput =
         document.getElementById("name");
 
@@ -122,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
         messageInput.value.trim();
 
 
-      /* Check fields */
+      /* CHECK REQUIRED FIELDS */
 
       if (!name || !email || !message) {
 
@@ -133,15 +123,13 @@ document.addEventListener("DOMContentLoaded", () => {
           "form-error";
 
         return;
-
       }
 
 
-      /* Validate email */
+      /* CHECK EMAIL */
 
       const emailPattern =
         /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
 
       if (!emailPattern.test(email)) {
 
@@ -152,22 +140,52 @@ document.addEventListener("DOMContentLoaded", () => {
           "form-error";
 
         return;
-
       }
 
 
-      /* Success */
+      /* =========================================
+         CREATE EMAIL MESSAGE
+      ========================================= */
+
+      const recipient =
+        "mosesabulu@example.com";
+
+      const subject =
+        encodeURIComponent(
+          `Portfolio Contact from ${name}`
+        );
+
+      const body =
+        encodeURIComponent(
+          `Hello Moses,
+
+Name: ${name}
+Email: ${email}
+
+Message:
+${message}
+
+Sent from the Moses Abulu Cybersecurity Portfolio.`
+        );
+
+
+      /* =========================================
+         OPEN EMAIL APPLICATION
+      ========================================= */
+
+      window.location.href =
+        `mailto:${recipient}?subject=${subject}&body=${body}`;
+
+
+      /* =========================================
+         SUCCESS MESSAGE
+      ========================================= */
 
       formMessage.textContent =
-        `Thank you, ${name}! Your message has been prepared successfully.`;
+        "Your email application should now open.";
 
       formMessage.className =
         "form-success";
-
-
-      /* Clear form */
-
-      contactForm.reset();
 
     });
 
@@ -181,7 +199,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const projectCards =
     document.querySelectorAll(".project-card");
 
-
   projectCards.forEach((card) => {
 
     card.addEventListener("mouseenter", () => {
@@ -190,7 +207,6 @@ document.addEventListener("DOMContentLoaded", () => {
         "translateY(-8px)";
 
     });
-
 
     card.addEventListener("mouseleave", () => {
 
@@ -208,7 +224,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const dashboardCards =
     document.querySelectorAll(".dashboard-card");
-
 
   dashboardCards.forEach((card) => {
 
