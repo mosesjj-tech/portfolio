@@ -1,184 +1,178 @@
-// ==========================================
-// MOSES ABULU
-// CYBERSECURITY PORTFOLIO
-// JAVASCRIPT
-// ==========================================
+/* =========================================
+   MOSES ABULU - PORTFOLIO JAVASCRIPT
+========================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  /* =========================================
+     CURRENT YEAR
+  ========================================= */
+
+  const yearElement = document.getElementById("year");
+
+  if (yearElement) {
+    yearElement.textContent = new Date().getFullYear();
+  }
 
 
-// ==========================================
-// 1. FOOTER YEAR
-// ==========================================
+  /* =========================================
+     CONTACT FORM
+  ========================================= */
 
-const yearElement = document.getElementById("year");
+  const contactForm = document.getElementById("contactForm");
+  const formMessage = document.getElementById("formMessage");
 
-if (yearElement) {
-  yearElement.textContent = new Date().getFullYear();
-}
+  if (contactForm) {
 
+    contactForm.addEventListener("submit", (event) => {
 
-// ==========================================
-// 2. SMOOTH NAVIGATION
-// ==========================================
-
-const navigationLinks = document.querySelectorAll(".nav-links a");
-
-navigationLinks.forEach((link) => {
-  link.addEventListener("click", function (event) {
-
-    const targetId = this.getAttribute("href");
-
-    if (!targetId || !targetId.startsWith("#")) {
-      return;
-    }
-
-    const targetSection = document.querySelector(targetId);
-
-    if (targetSection) {
       event.preventDefault();
 
-      targetSection.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
+      const nameInput = document.getElementById("name");
+      const emailInput = document.getElementById("email");
+      const messageInput = document.getElementById("message");
+
+      const name = nameInput.value.trim();
+      const email = emailInput.value.trim();
+      const message = messageInput.value.trim();
+
+
+      /* Check empty fields */
+
+      if (!name || !email || !message) {
+
+        formMessage.textContent =
+          "Please complete all fields before sending.";
+
+        formMessage.className = "form-error";
+
+        return;
+      }
+
+
+      /* Check email */
+
+      const emailPattern =
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!emailPattern.test(email)) {
+
+        formMessage.textContent =
+          "Please enter a valid email address.";
+
+        formMessage.className = "form-error";
+
+        return;
+      }
+
+
+      /* Show success message */
+
+      formMessage.textContent =
+        `Thank you, ${name}! Your message has been prepared successfully.`;
+
+      formMessage.className = "form-success";
+
+
+      /* Clear form */
+
+      contactForm.reset();
+
+    });
+
+  }
+
+
+  /* =========================================
+     SMOOTH NAVIGATION
+  ========================================= */
+
+  const navigationLinks =
+    document.querySelectorAll('.nav-links a[href^="#"]');
+
+  navigationLinks.forEach((link) => {
+
+    link.addEventListener("click", (event) => {
+
+      const targetId =
+        link.getAttribute("href");
+
+      const target =
+        document.querySelector(targetId);
+
+      if (target) {
+
+        event.preventDefault();
+
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+
+      }
+
+    });
+
+  });
+
+
+  /* =========================================
+     BACK TO TOP BUTTON
+  ========================================= */
+
+  const backToTop =
+    document.getElementById("backToTop");
+
+  if (backToTop) {
+
+    window.addEventListener("scroll", () => {
+
+      if (window.scrollY > 400) {
+
+        backToTop.classList.add("show");
+
+      } else {
+
+        backToTop.classList.remove("show");
+
+      }
+
+    });
+
+
+    backToTop.addEventListener("click", () => {
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
       });
-    }
 
-  });
-});
+    });
 
-
-// ==========================================
-// 3. CONTACT FORM
-// ==========================================
-
-const contactForm = document.getElementById("contactForm");
-const formMessage = document.getElementById("formMessage");
-
-if (contactForm) {
-
-  contactForm.addEventListener("submit", function (event) {
-
-    event.preventDefault();
-
-    const nameInput = document.getElementById("name");
-    const emailInput = document.getElementById("email");
-    const messageInput = document.getElementById("message");
-
-    const name = nameInput.value.trim();
-    const email = emailInput.value.trim();
-    const message = messageInput.value.trim();
+  }
 
 
-    // Check empty fields
+  /* =========================================
+     PROJECT LINK EFFECT
+  ========================================= */
 
-    if (!name || !email || !message) {
+  const projectLinks =
+    document.querySelectorAll(".project-link");
 
-      formMessage.textContent =
-        "Please complete all fields before submitting.";
+  projectLinks.forEach((link) => {
 
-      formMessage.style.display = "block";
+    link.addEventListener("click", () => {
 
-      return;
-    }
+      link.style.opacity = "0.7";
 
+      setTimeout(() => {
 
-    // Check email format
+        link.style.opacity = "1";
 
-    const emailPattern =
-      /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      }, 300);
 
-    if (!emailPattern.test(email)) {
-
-      formMessage.textContent =
-        "Please enter a valid email address.";
-
-      formMessage.style.display = "block";
-
-      return;
-    }
-
-
-    // Successful submission
-
-    formMessage.textContent =
-      `Thank you, ${name}! Your message has been received.`;
-
-    formMessage.style.display = "block";
-
-
-    // Clear form
-
-    contactForm.reset();
-
-  });
-
-}
-
-
-// ==========================================
-// 4. BUTTON ANIMATION
-// ==========================================
-
-const buttons = document.querySelectorAll(".btn");
-
-buttons.forEach((button) => {
-
-  button.addEventListener("click", function () {
-
-    this.classList.add("button-clicked");
-
-    setTimeout(() => {
-
-      this.classList.remove("button-clicked");
-
-    }, 200);
+    });
 
   });
 
 });
-
-
-// ==========================================
-// 5. SECTION SCROLL REVEAL
-// ==========================================
-
-const sections = document.querySelectorAll(".section");
-
-function revealSections() {
-
-  sections.forEach((section) => {
-
-    const sectionPosition =
-      section.getBoundingClientRect().top;
-
-    const screenPosition =
-      window.innerHeight - 100;
-
-    if (sectionPosition < screenPosition) {
-
-      section.classList.add("visible");
-
-    }
-
-  });
-
-}
-
-window.addEventListener("scroll", revealSections);
-
-
-// Run when page loads
-
-revealSections();
-
-
-// ==========================================
-// 6. CONSOLE MESSAGE
-// ==========================================
-
-console.log(
-  "Moses Abulu Cybersecurity Portfolio loaded successfully."
-);
-
-console.log(
-  "HTML + CSS + JavaScript are connected."
-);
