@@ -1,13 +1,14 @@
-/* =========================================
+/* =========================================================
    MOSES ABULU
-   CYBERSECURITY PORTFOLIO JAVASCRIPT
-========================================= */
+   CYBERSECURITY PORTFOLIO
+   FULL JAVASCRIPT
+========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* =========================================
+  /* =======================================================
      CURRENT YEAR
-  ========================================= */
+  ======================================================= */
 
   const yearElement = document.getElementById("year");
 
@@ -16,52 +17,24 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  /* =========================================
-     SMOOTH NAVIGATION
-  ========================================= */
+  /* =======================================================
+     BACK TO TOP BUTTON
+  ======================================================= */
 
-  const navigationLinks =
-    document.querySelectorAll('.nav-links a[href^="#"]');
-
-  navigationLinks.forEach((link) => {
-
-    link.addEventListener("click", (event) => {
-
-      const targetId = link.getAttribute("href");
-      const targetElement = document.querySelector(targetId);
-
-      if (targetElement) {
-        event.preventDefault();
-
-        targetElement.scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
-      }
-
-    });
-
-  });
-
-
-  /* =========================================
-     BACK TO TOP
-  ========================================= */
-
-  const backToTop =
-    document.getElementById("backToTop");
+  const backToTop = document.getElementById("backToTop");
 
   if (backToTop) {
 
     window.addEventListener("scroll", () => {
 
-      if (window.scrollY > 400) {
+      if (window.scrollY > 500) {
         backToTop.classList.add("show");
       } else {
         backToTop.classList.remove("show");
       }
 
     });
+
 
     backToTop.addEventListener("click", () => {
 
@@ -75,9 +48,50 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  /* =========================================
+  /* =======================================================
+     SMOOTH NAVIGATION
+  ======================================================= */
+
+  const navigationLinks = document.querySelectorAll(
+    'a[href^="#"]'
+  );
+
+
+  navigationLinks.forEach((link) => {
+
+    link.addEventListener("click", (event) => {
+
+      const targetId = link.getAttribute("href");
+
+      if (!targetId || targetId === "#") {
+        return;
+      }
+
+
+      const targetElement =
+        document.querySelector(targetId);
+
+
+      if (targetElement) {
+
+        event.preventDefault();
+
+
+        targetElement.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+
+      }
+
+    });
+
+  });
+
+
+  /* =======================================================
      CONTACT FORM
-  ========================================= */
+  ======================================================= */
 
   const contactForm =
     document.getElementById("contactForm");
@@ -92,160 +106,174 @@ document.addEventListener("DOMContentLoaded", () => {
 
       event.preventDefault();
 
-      const nameInput =
-        document.getElementById("name");
-
-      const emailInput =
-        document.getElementById("email");
-
-      const messageInput =
-        document.getElementById("message");
-
 
       const name =
-        nameInput.value.trim();
+        document.getElementById("name")?.value.trim();
 
       const email =
-        emailInput.value.trim();
+        document.getElementById("email")?.value.trim();
 
       const message =
-        messageInput.value.trim();
+        document.getElementById("message")?.value.trim();
 
-
-      /* CHECK REQUIRED FIELDS */
 
       if (!name || !email || !message) {
 
-        formMessage.textContent =
-          "Please complete all fields before sending.";
+        if (formMessage) {
 
-        formMessage.className =
-          "form-error";
+          formMessage.textContent =
+            "Please complete all fields.";
 
-        return;
-      }
+          formMessage.className =
+            "form-error";
 
-
-      /* CHECK EMAIL */
-
-      const emailPattern =
-        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-      if (!emailPattern.test(email)) {
-
-        formMessage.textContent =
-          "Please enter a valid email address.";
-
-        formMessage.className =
-          "form-error";
+        }
 
         return;
       }
 
 
-      /* =========================================
-         CREATE EMAIL MESSAGE
-      ========================================= */
+      if (formMessage) {
 
-      const recipient =
-        "mosesabulu@example.com";
+        formMessage.textContent =
+          `Thanks, ${name}! Your message has been received.`;
 
-      const subject =
-        encodeURIComponent(
-          `Portfolio Contact from ${name}`
-        );
+        formMessage.className =
+          "form-success";
 
-      const body =
-        encodeURIComponent(
-          `Hello Moses,
-
-Name: ${name}
-Email: ${email}
-
-Message:
-${message}
-
-Sent from the Moses Abulu Cybersecurity Portfolio.`
-        );
+      }
 
 
-      /* =========================================
-         OPEN EMAIL APPLICATION
-      ========================================= */
-
-      window.location.href =
-        `mailto:${recipient}?subject=${subject}&body=${body}`;
-
-
-      /* =========================================
-         SUCCESS MESSAGE
-      ========================================= */
-
-      formMessage.textContent =
-        "Your email application should now open.";
-
-      formMessage.className =
-        "form-success";
+      contactForm.reset();
 
     });
 
   }
 
 
-  /* =========================================
-     PROJECT CARD INTERACTION
-  ========================================= */
-
-  const projectCards =
-    document.querySelectorAll(".project-card");
-
-  projectCards.forEach((card) => {
-
-    card.addEventListener("mouseenter", () => {
-
-      card.style.transform =
-        "translateY(-8px)";
-
-    });
-
-    card.addEventListener("mouseleave", () => {
-
-      card.style.transform =
-        "translateY(0)";
-
-    });
-
-  });
-
-
-  /* =========================================
+  /* =======================================================
      DASHBOARD CARD INTERACTION
-  ========================================= */
+  ======================================================= */
 
   const dashboardCards =
     document.querySelectorAll(".dashboard-card");
+
 
   dashboardCards.forEach((card) => {
 
     card.addEventListener("click", () => {
 
-      card.classList.toggle("dashboard-active");
+      dashboardCards.forEach((item) => {
+        item.classList.remove("dashboard-active");
+      });
+
+
+      card.classList.add("dashboard-active");
 
     });
 
   });
 
 
-  /* =========================================
+  /* =======================================================
+     PROJECT BUTTON INTERACTION
+  ======================================================= */
+
+  const projectButtons =
+    document.querySelectorAll(".project-btn");
+
+
+  projectButtons.forEach((button) => {
+
+    button.addEventListener("click", () => {
+
+      const projectCard =
+        button.closest(".project-card");
+
+
+      if (!projectCard) {
+        return;
+      }
+
+
+      const projectTitle =
+        projectCard.querySelector("h3");
+
+
+      if (projectTitle) {
+
+        alert(
+          `${projectTitle.textContent} — Project details coming soon.`
+        );
+
+      }
+
+    });
+
+  });
+
+
+  /* =======================================================
+     INTERSECTION ANIMATION
+  ======================================================= */
+
+  const animatedElements =
+    document.querySelectorAll(
+      ".focus-card, .skill-card, .dashboard-card, .tool-card, .project-card"
+    );
+
+
+  const observer =
+    new IntersectionObserver(
+      (entries) => {
+
+        entries.forEach((entry) => {
+
+          if (entry.isIntersecting) {
+
+            entry.target.style.opacity = "1";
+
+            entry.target.style.transform =
+              "translateY(0)";
+
+            observer.unobserve(entry.target);
+
+          }
+
+        });
+
+      },
+      {
+        threshold: 0.15
+      }
+    );
+
+
+  animatedElements.forEach((element) => {
+
+    element.style.opacity = "0";
+
+    element.style.transform =
+      "translateY(25px)";
+
+    element.style.transition =
+      "opacity 0.6s ease, transform 0.6s ease";
+
+    observer.observe(element);
+
+  });
+
+
+  /* =======================================================
      CONSOLE MESSAGE
-  ========================================= */
+  ======================================================= */
 
   console.log(
-    "Moses Abulu Cybersecurity Portfolio loaded successfully."
+    "🔐 Moses Abulu Cybersecurity Portfolio loaded successfully."
   );
 
   console.log(
-    "Portfolio technologies: HTML, CSS, JavaScript."
+    "🛡️ Keep learning. Keep building. Keep improving."
   );
 
 });
