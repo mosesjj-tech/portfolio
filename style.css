@@ -47,15 +47,15 @@ header {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(5, 11, 20, 0.95);
+  background: rgba(5, 11, 20, 0.96);
   border-bottom: 1px solid rgba(0, 229, 255, 0.15);
   backdrop-filter: blur(12px);
 }
 
 .navbar {
   width: min(1150px, 92%);
-  margin: auto;
   min-height: 75px;
+  margin: auto;
 
   display: flex;
   align-items: center;
@@ -73,7 +73,8 @@ header {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 25px;
+  justify-content: center;
+  gap: 22px;
   list-style: none;
 }
 
@@ -105,7 +106,7 @@ header {
   background:
     radial-gradient(
       circle at top,
-      rgba(0, 229, 255, 0.12),
+      rgba(0, 229, 255, 0.13),
       transparent 45%
     );
 }
@@ -145,16 +146,16 @@ header {
   font-size: 1.05rem;
 }
 
+/* =========================================
+   BUTTONS
+========================================= */
+
 .hero-buttons {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 15px;
 }
-
-/* =========================================
-   BUTTONS
-========================================= */
 
 .btn {
   display: inline-block;
@@ -203,13 +204,21 @@ header {
   color: #00e5ff;
   text-align: center;
   font-size: clamp(2rem, 5vw, 3rem);
-  margin-bottom: 35px;
+  margin-bottom: 15px;
 }
 
-.section > p {
+.section-subtitle {
+  text-align: center;
+  color: #ffffff;
+  font-size: 1.4rem;
+  margin-bottom: 25px;
+}
+
+.section-description {
   max-width: 850px;
-  margin: 0 auto 18px;
-  color: #b7c6d8;
+  margin: 0 auto 35px;
+  text-align: center;
+  color: #aebed0;
 }
 
 /* =========================================
@@ -221,29 +230,33 @@ header {
 }
 
 #about p {
+  max-width: 850px;
+  margin: 0 auto 18px;
+  color: #b7c6d8;
   font-size: 1.05rem;
 }
 
 /* =========================================
-   FOCUS / CYBERSECURITY AREAS
+   GRID SYSTEMS
 ========================================= */
 
 .skills-container,
-.focus-container,
 .focus-grid,
-.projects-container {
+.projects-container,
+.dashboard-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 22px;
 }
 
 /* =========================================
-   CARDS
+   GENERAL CARDS
 ========================================= */
 
 .skill-card,
 .focus-card,
-.project-card {
+.project-card,
+.dashboard-card {
   padding: 28px;
 
   background: #0a1422;
@@ -251,12 +264,16 @@ header {
   border: 1px solid rgba(0, 229, 255, 0.15);
   border-radius: 14px;
 
-  transition: 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .skill-card:hover,
 .focus-card:hover,
-.project-card:hover {
+.project-card:hover,
+.dashboard-card:hover {
   transform: translateY(-6px);
 
   border-color: rgba(0, 229, 255, 0.55);
@@ -268,25 +285,26 @@ header {
 
 .skill-card h3,
 .focus-card h3,
-.project-card h3 {
-  color: #ffffff;
+.project-card h3,
+.dashboard-card h3 {
   margin-bottom: 10px;
+  color: #00e5ff;
 }
 
 .skill-card p,
 .focus-card p,
-.project-card p {
+.project-card p,
+.dashboard-card p {
   color: #aebed0;
 }
 
 /* =========================================
-   FOCUS ICONS
+   FOCUS
 ========================================= */
 
-.focus-card .icon,
 .focus-icon {
-  font-size: 2rem;
-  margin-bottom: 15px;
+  font-size: 2.2rem;
+  margin-bottom: 12px;
 }
 
 /* =========================================
@@ -301,8 +319,158 @@ header {
   text-align: left;
 }
 
-.skill-card h3 {
+/* =========================================
+   CYBERSECURITY DASHBOARD
+========================================= */
+
+.dashboard-section {
+  position: relative;
+}
+
+.dashboard-section::before {
+  content: "";
+
+  display: block;
+
+  width: 100%;
+  height: 1px;
+
+  margin-bottom: 50px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(0, 229, 255, 0.45),
+      transparent
+    );
+}
+
+.dashboard-grid {
+  margin-top: 30px;
+}
+
+.dashboard-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 3px;
+
+  background: #00e5ff;
+
+  transform: scaleX(0.35);
+  transform-origin: left;
+
+  transition: 0.4s ease;
+}
+
+.dashboard-card:hover::before {
+  transform: scaleX(1);
+}
+
+.dashboard-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-bottom: 18px;
+
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.dashboard-top strong {
   color: #00e5ff;
+  font-size: 0.75rem;
+
+  padding: 5px 9px;
+
+  border: 1px solid rgba(0, 229, 255, 0.25);
+  border-radius: 20px;
+
+  background: rgba(0, 229, 255, 0.06);
+
+  white-space: nowrap;
+}
+
+/* =========================================
+   PROGRESS BARS
+========================================= */
+
+.progress-bar {
+  width: 100%;
+  height: 9px;
+
+  margin-bottom: 16px;
+
+  background: #172638;
+
+  border-radius: 20px;
+
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      #00a8c7,
+      #00e5ff
+    );
+
+  border-radius: 20px;
+
+  width: 0;
+
+  animation: progressAnimation 1.5s ease forwards;
+}
+
+.progress-55 {
+  width: 55%;
+}
+
+.progress-60 {
+  width: 60%;
+}
+
+.progress-65 {
+  width: 65%;
+}
+
+.progress-70 {
+  width: 70%;
+}
+
+.progress-75 {
+  width: 75%;
+}
+
+@keyframes progressAnimation {
+  from {
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+    transform-origin: left;
+  }
 }
 
 /* =========================================
@@ -313,20 +481,20 @@ header {
   position: relative;
 }
 
+.project-number {
+  color: #60748b;
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
 .project-card h3 {
   color: #00e5ff;
 }
 
-.project-number {
-  color: #657b92;
-  font-size: 2rem;
-  font-weight: 800;
-  margin-bottom: 10px;
-}
-
-.project-btn,
 .project-link {
   display: inline-block;
+
   margin-top: 18px;
 
   color: #00e5ff;
@@ -335,7 +503,6 @@ header {
   transition: 0.3s ease;
 }
 
-.project-btn:hover,
 .project-link:hover {
   color: #ffffff;
   transform: translateX(4px);
@@ -348,7 +515,9 @@ header {
 .project-tags {
   display: flex;
   flex-wrap: wrap;
+
   gap: 8px;
+
   margin-top: 18px;
 }
 
@@ -453,9 +622,15 @@ footer {
   color: #8193a8;
 }
 
+footer p {
+  margin: 5px 0;
+}
+
 footer a {
   color: #00e5ff;
   font-weight: 700;
+
+  transition: 0.3s ease;
 }
 
 footer a:hover {
@@ -463,7 +638,7 @@ footer a:hover {
 }
 
 /* =========================================
-   BACK TO TOP BUTTON
+   BACK TO TOP
 ========================================= */
 
 #backToTop {
@@ -515,37 +690,55 @@ footer a:hover {
 }
 
 /* =========================================
-   RESPONSIVE DESIGN
+   FOCUS ACCESSIBILITY
 ========================================= */
 
-@media (max-width: 850px) {
+:focus-visible {
+  outline: 2px solid #00e5ff;
+  outline-offset: 3px;
+}
 
-  .navbar {
-    flex-direction: column;
-    justify-content: center;
-    padding: 18px 0;
-  }
+/* =========================================
+   TABLET
+========================================= */
 
-  .nav-links {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-  }
+@media (max-width: 950px) {
 
   .skills-container,
-  .focus-container,
   .focus-grid,
-  .projects-container {
+  .projects-container,
+  .dashboard-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .navbar {
+    gap: 15px;
+  }
+
+  .nav-links {
+    gap: 14px;
+  }
 }
 
 /* =========================================
    MOBILE
 ========================================= */
 
-@media (max-width: 600px) {
+@media (max-width: 650px) {
+
+  .navbar {
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 18px 0;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    gap: 10px;
+
+    font-size: 0.9rem;
+  }
 
   .hero {
     min-height: 80vh;
@@ -558,9 +751,9 @@ footer a:hover {
   }
 
   .skills-container,
-  .focus-container,
   .focus-grid,
-  .projects-container {
+  .projects-container,
+  .dashboard-grid {
     grid-template-columns: 1fr;
   }
 
@@ -573,9 +766,13 @@ footer a:hover {
     text-align: center;
   }
 
-  .nav-links {
-    gap: 10px;
-    font-size: 0.9rem;
+  .dashboard-top {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  #contactForm .btn {
+    width: 100%;
   }
 
   #backToTop {
@@ -585,14 +782,30 @@ footer a:hover {
     width: 44px;
     height: 44px;
   }
-
 }
 
 /* =========================================
-   ACCESSIBILITY
+   SMALL PHONES
 ========================================= */
 
-:focus-visible {
-  outline: 2px solid #00e5ff;
-  outline-offset: 3px;
+@media (max-width: 400px) {
+
+  .hero h2 {
+    font-size: 2.3rem;
+  }
+
+  .hero h3 {
+    font-size: 1.2rem;
+  }
+
+  .section > h2 {
+    font-size: 1.8rem;
+  }
+
+  .skill-card,
+  .focus-card,
+  .project-card,
+  .dashboard-card {
+    padding: 22px;
+  }
 }
